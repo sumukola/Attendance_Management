@@ -1,8 +1,9 @@
+from cmath import log
 from contextlib import redirect_stderr
 from http.client import HTTPResponse
 from django.shortcuts import render
 from django.contrib import messages
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User 
 
@@ -35,3 +36,8 @@ def login_user(request):
             return render(request,'login.html')
     else:
         return render(request,'login.html')
+
+def logout_user(request):
+    logout(request)
+    forms = UserCreationForm()
+    return render(request,'user_register.html',{'form':forms})

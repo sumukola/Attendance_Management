@@ -29,6 +29,10 @@
 <form action = "{% url 'register' %}" method='post'>
     {% csrf_token %}
     <br>
-        {{ form.as_p }}
-    <button type="submit">Register</button>
+        {% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.label_tag }}: {{ field }}
+        </div>
+{% endfor %}
+    <button type="submit">Signup</button>
 {% endblock %}
