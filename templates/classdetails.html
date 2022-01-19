@@ -1,26 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Choose sem</h3>
-<form action="takecreatepagevalues">
-    <input type="radio" id="1" name="sem" value="1">
-    <label for="1">:1</label>&#160
-    <input type="radio" id="2" name="sem" value="2">
-    <label for="2">:2</label>&#160
-    <input type="radio" id="3" name="sem" value="3">
-    <label for="3">:3</label>&#160
-    <input type="radio" id="4" name="sem" value="4">
-    <label for="4">:4</label>&#160
-    <input type="radio" id="5" name="sem" value="5">
-    <label for="5">:5</label>&#160
-    <input type="radio" id="6" name="sem" value="6">
-    <label for="6">:6</label>&#160
-    <input type="radio" id="7" name="sem" value="7">
-    <label for="7">:7</label>&#160
-    <input type="radio" id="8" name="sem" value="8">
-    <label for="8">:8</label>&#160
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-danger alert-dismissible fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
+
+
+
+<h3>Choose Semester</h3>
+<form action="{% url 'take_class_vals' %}" method="post">
+    {% csrf_token %}
+    {{form1.SEMS}}
+    <h3>Choose a Section</h3>
+    {{form2.SEC}}
+    <h3>Subject</h3>
+    {{form3.SUB}}
     <button type="submit">Submit</button>
 </form>
-
-
 {% endblock %}

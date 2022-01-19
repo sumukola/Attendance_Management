@@ -4,9 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Attendance Management System</title>
 </head>
 <body>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <p>Attendance Management System</p>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="{% url 'homepage' %}">Home</a></li>
+        <li><a href="{% url 'createclass' %}">Create class</a></li> 
+        <li><a href="">Add Students</a></li>
+        <li><a href="">Edit Existing Class</a></li>
+        <li><a href="">Student Analytics</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if request.user.is_authenticated %}
+            <li><a href="{%url 'logout_user' %}">Logout</a></li>
+        {% else %}
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        {% endif %}
+      </ul>
+    </div>
+</nav>
     {% block content %}
     {% endblock %}
 </body>
