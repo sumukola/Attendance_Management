@@ -1,11 +1,13 @@
 from cmath import log
 from contextlib import redirect_stderr
 from http.client import HTTPResponse
+import re
 from django.shortcuts import render
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User 
+from django.db import connection
 
 # Create your views here.
 
@@ -30,7 +32,11 @@ def login_user(request):
         user = authenticate(request,username=username,password=password)
         if user is not None:
             login(request,user)
-            return render(request,'homepage.html')
+            usertables = usertab(username)
+            if usertables:
+                return render(request,'homepage.html',{'tables':usertables})
+            else:
+                return render(request,'homepage.html',{'messages':'You have no classes'})
         else:
             messages.success(request,'Incorrect Username or Password')
             return render(request,'login.html')
@@ -41,3 +47,11 @@ def logout_user(request):
     logout(request)
     forms = UserCreationForm()
     return render(request,'user_register.html',{'form':forms})
+
+def usertab(username):
+    tables = connection.introspection.table_names()
+    usertables = []
+    for table in tables:
+        if table.startswith(username):
+            usertables.append(table)
+    return usertables

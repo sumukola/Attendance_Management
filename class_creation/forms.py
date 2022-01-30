@@ -4,7 +4,7 @@ from django import forms
 SEMS= [
     ('1', '1'),('2', '2'),('3', '3'),('4', '4'),('5', '5'),('6', '6'),('7', '7'),('8', '8'),]
 
-Section = [('A','A'),('B','B'),('C','C'),('D','D'),('E','E'),('F','F')]
+Section = [('A','A'),('B','B'),('C','C')]
 
 class Sem(forms.Form):
     SEMS = forms.CharField(widget=forms.RadioSelect(choices=SEMS))

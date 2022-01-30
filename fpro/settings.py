@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'class_creation',
     'home',
     'users',
+    'addstu',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+        {% if forms %}
+                <form action="{% url 'stu_cred' %}" method="post">
+                        {% csrf_token %}
+                        {{forms}}
+                        <button type="submit">Submit</button>
+                </form>
+        {% endif %}
+
+        {% if details %}
+                {% for i in details %}
+                        {{i}}
+                {% endfor %}
+        {% endif %}
+{% endblock %}

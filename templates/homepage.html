@@ -1,5 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content%}
-    username : {{username}}
+        {% if username %}
+            <center><h2> Hi {{username}}! </h2></center>
+        {% endif %}
+    {% if messages %}
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+    {% endif %}
+    {% if tables %}
+        <h5>Your Classes</h5>
+        {% for table in tables %}
+                <ul><button type="submit">{{table}}</button> 
+                    <button type="submit" name=table>Mark Attendance</button>
+                    <form action="{% url 'delete_class' tablename=table %}">
+                        <button type="submit" name=table>Delete</button>
+                    </form></ul><br> 
+        {% endfor %}
+    {% endif %}
 {% endblock%}
