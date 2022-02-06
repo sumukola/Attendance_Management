@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-        {% if forms %}
-                <form action="{% url 'stu_cred' %}" method="post">
+        <h4>Add students in your class</h4>
+        {% if forms and classname %}
+                <form action="{% url 'stu_cred' classname=classname %}" method="post">
                         {% csrf_token %}
                         {{forms}}
                         <button type="submit">Submit</button>
                 </form>
         {% endif %}
 
-        {% if details %}
-                {% for i in details %}
-                        {{i}}
+        {% if content %}
+                {% for con in content %}
+                        {{con}}
                 {% endfor %}
         {% endif %}
 {% endblock %}

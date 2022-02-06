@@ -1,5 +1,5 @@
 from email import message
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .forms import Sem , Sec , Sub
 from django.db import connection
 from django.contrib import messages
@@ -42,13 +42,13 @@ def take_class_vals(request):
         if check(cname):
             createtable(classname)
             usertables = usertab(username)
+            return redirect('homepage')
         else:
             form1 = Sem()
             form2 = Sec()
             form3 = Sub()
-            message = messages.success(request,'This class is already taken!!Create different one.')
-            return render(request,'classdetails.html',{'form1':form1,'form2':form2,'form3':form3})
-        return render(request,'add_students.html')
+            return render(request,'classdetails.html',{'form1':form1,'form2':form2,'form3':form3,'messages':['This class is already taken. Create different one.']})
+        
 
 def check(classname):
     tables = connection.introspection.table_names()

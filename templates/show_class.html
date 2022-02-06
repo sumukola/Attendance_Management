@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if students %}
+        {% for student in students %}
+            {{student}}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

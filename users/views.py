@@ -2,7 +2,7 @@ from cmath import log
 from contextlib import redirect_stderr
 from http.client import HTTPResponse
 import re
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm
@@ -20,7 +20,7 @@ def register(request):
             Password = request.POST['password1']
             user = authenticate(request,username=Username,password=Password)
             login(request,user)
-            return render(request,'homepage.html')
+            return redirect('homepage')
     else:
         forms = UserCreationForm()
     return render(request,'user_register.html',{'form':forms})
@@ -32,11 +32,7 @@ def login_user(request):
         user = authenticate(request,username=username,password=password)
         if user is not None:
             login(request,user)
-            usertables = usertab(username)
-            if usertables:
-                return render(request,'homepage.html',{'tables':usertables})
-            else:
-                return render(request,'homepage.html',{'messages':'You have no classes'})
+            return redirect('homepage')
         else:
             messages.success(request,'Incorrect Username or Password')
             return render(request,'login.html')
