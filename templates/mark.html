@@ -1,13 +1,6 @@
 {% extends 'base.html' %}
+
 {% block content %}
-        <h4>Add students in your class</h4>
-        {% if forms and classname %}
-                <form action="{% url 'stu_cred' classname=classname %}" method="post">
-                        {% csrf_token %}
-                        {{forms}}
-                        <button type="submit">Submit</button>
-                </form>
-        {% endif %}
 <style>
     table,td {
         border: 1px solid rgb(0, 0, 0);
@@ -23,21 +16,30 @@
     }
 </style>
     <center>
+        <input type="date" name="date">
+        <br><br>
         {% if students %}
             <table style="width:fit-content">
                 <tr>
                     <th>Roll Number</th>
                     <th>USN</th>
                     <th>Student Name</th>
+                    <th>Attendance Status</th>
                 </tr>
                 {% for student in students %}
                     <tr>
                         {% for i in student%}
                             <td>{{i}}</td>
                         {% endfor %}
+                        <td>
+                            <input type="radio" id="present" name=student value="present">
+                            <label for="present">P</label>
+                            <input type="radio" id="absent" name=student value="absent">
+                            <label for="absent">A</label>
+                        </td>
                     </tr>    
                 {% endfor %}
             </table>
         {% endif %}
-        </center>
+    </center>
 {% endblock %}

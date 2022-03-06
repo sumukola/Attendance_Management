@@ -7,7 +7,8 @@ from django.db import connection
 # Create your views here.
 def addordel(request,classname):
     form = stu_form()
-    return render(request,'add_students.html',{'forms':form,'classname':classname})
+    content = class_content(classname)
+    return render(request,'add_students.html',{'forms':form,'classname':classname,'students':content})
 
 def stu_cred(request,classname):
     if request.method == "POST":
@@ -18,7 +19,6 @@ def stu_cred(request,classname):
     with connection.cursor() as cursor:
         query = "insert into {0} values({1},'{2}','{3}')".format(classname,rollno,usn,name)
         cursor.execute(query)
-    # content = class_content(classname)
     return redirect('addordel',classname)
     
 def class_content(classname):

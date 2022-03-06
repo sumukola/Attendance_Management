@@ -17,7 +17,7 @@ def home(request):
             usertables.append(table)
     if len(usertables)!=0:
         return render(request,'homepage.html',{'tables':usertables})
-    return render(request,'homepage.html',{"messages":['Classes created are displayed here.']})
+    return render(request,'homepage.html',{"messages":['You have no classes to manage. Go create one.']})
 
 def createclass(request):
     return render(request,'class_creation/views/show_class_details_page')

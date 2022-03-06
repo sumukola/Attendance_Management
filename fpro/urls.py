@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('users.urls')),
     path('home',include('home.urls')),
-    path('addordel',include('addstu.urls'))
+    path('addordel',include('addstu.urls')),
+    path('markatt',include('markatt.urls'))
 ]

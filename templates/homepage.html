@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content%}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    {% if username %}
-        <center><h2> Hi {{username}}! </h2></center>
-    {% endif %}
     {% if messages %}
         {% for message in messages %}
-            {{message}}
+            <h3>{{message}}</h3>
         {% endfor %}
     {% endif %}
 
@@ -17,15 +17,50 @@
         {% for table in tables %}
                 <div class="btn-group">
                     <form action="{% url 'show_class' classname=table %}"><button type="submit">{{table}}</button></form> 
-                    <form><button type="submit" name=table>Mark Attendance</button></form>
+                    <form action="{% url 'markatt' tablename=table %}"><button type="submit" name=table>Mark Attendance</button></form>
                     <form action="{% url 'addordel' classname=table %}"><button type="submit" name=table>Add Students</button></form>
-                    <form action="{% url 'delete_class' tablename=table %}">
-                        <button type="submit" name=table>Delete</button>
+                    <form action="{% url 'delete_class' tablename=table %}" autocomplete="off">
+                        <button type="button"  data-toggle="modal" data-target="#myModal">Delete</button>
+                        <div class="container">
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal" role="dialog">
+                              <div class="modal-dialog">
+                              
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Type "<b>delete</b>" to delete the class</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                      <div class="placeholder">
+                                        <input type="text" name=table placeholder={{table}} required>
+                                      </div>
+                                    <button type="submit">Delete</button>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                                
+                              </div>
+                            </div>
                     </form>
                 </div>
         {% endfor %}
     {% endif %}
     <style>
+        .placeholder{
+        position: relative;
+        }
+        .placeholder::after{
+        position: absolute;
+        left: 5px;
+        top: 3px;
+        content: attr(data-placeholder);
+        pointer-events: none;
+        opacity: 0.6;
+        }
         .head{
             margin: 10px;
         }
