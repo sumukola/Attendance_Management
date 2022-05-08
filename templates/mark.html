@@ -16,6 +16,8 @@
     }
 </style>
     <center>
+        <form action="{% url 'getattendance' classname=classname %}" method="post">
+        {% csrf_token %}
         <input type="date" name="date">
         <br><br>
         {% if students %}
@@ -32,14 +34,29 @@
                             <td>{{i}}</td>
                         {% endfor %}
                         <td>
-                            <input type="radio" id="present" name=student value="present">
-                            <label for="present">P</label>
-                            <input type="radio" id="absent" name=student value="absent">
-                            <label for="absent">A</label>
+                            <div class="form-check" aria-required="true">
+                                <input class="form-check-input" type="radio" name={{student}} value="Present">
+                                <label class="form-check-label" for="flexRadioDefault1">Present</label>
+                                <input class="form-check-input" type="radio" name={{student}} value="Absent">
+                                <label class="form-check-label" for="flexRadioDefault1">Absent</label>
+                            </div>
                         </td>
                     </tr>    
                 {% endfor %}
-            </table>
+            </table><br><br>
+            <button type="submit">Done</button>
         {% endif %}
+        </form>
     </center>
+<script>
+    var checks = document.querySelectorAll(".check");
+    var max = 1;    
+    for (var i = 0; i < checks.length; i++)
+        checks[i].onclick = selectiveCheck;
+        function selectiveCheck (event) {
+        var checkedChecks = document.querySelectorAll(".check:checked");
+    if (checkedChecks.length >= max + 1)
+        return false;
+}
+</script>
 {% endblock %}

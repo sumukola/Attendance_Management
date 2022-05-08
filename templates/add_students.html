@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+        <center>
         <h4>Add students in your class</h4>
         {% if forms and classname %}
                 <form action="{% url 'stu_cred' classname=classname %}" method="post">
@@ -8,6 +9,7 @@
                         <button type="submit">Submit</button>
                 </form>
         {% endif %}
+    </center>
 <style>
     table,td {
         border: 1px solid rgb(0, 0, 0);
@@ -22,6 +24,7 @@
         width: 250px;
     }
 </style>
+    <br><br>
     <center>
         {% if students %}
             <table style="width:fit-content">
