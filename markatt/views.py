@@ -21,12 +21,21 @@ def get_att(request,classname):
                 date = i[1]
             else:
                 d[i[0][1:2]] = i[1]
+        write_to_db(request,date,classname,d)
+        return render(request,'sample.html',{'status':date})
     except:
-        pass
-    return render(request,'sample.html',{'status':(date,d,classname)})
+        return render(request,'mark.html',{'status':"Something went wrong while marking attendance. Please make sure you did it correctly."})
+    
+def write_to_db(request,date,classname,d):
+    date = date[5:7] + date[8:] + date[:4]
+    with connection.cursor() as cursor:
+        cursor.execute("alter table {} add d{} varchar".format(str(classname),str(date)))
+        for rollno,status in d.items():
+            cursor.execute("update {} set d{} = '{}' where rollno={}".format(classname,date,status,rollno))
+    return
 
 def get_students(request,classname):
     with connection.cursor() as cursor:
-        cursor.execute("select * from {}".format(classname))
+        cursor.execute("select rollno,usn,name from {}".format(classname))
         students = cursor.fetchall()
     return students

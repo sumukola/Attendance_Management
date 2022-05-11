@@ -18,7 +18,7 @@
     <center>
         <form action="{% url 'getattendance' classname=classname %}" method="post">
         {% csrf_token %}
-        <input type="date" name="date">
+        <input type="date" name="date" required="true">
         <br><br>
         {% if students %}
             <table style="width:fit-content">
@@ -34,12 +34,10 @@
                             <td>{{i}}</td>
                         {% endfor %}
                         <td>
-                            <div class="form-check" aria-required="true">
-                                <input class="form-check-input" type="radio" name={{student}} value="Present">
-                                <label class="form-check-label" for="flexRadioDefault1">Present</label>
-                                <input class="form-check-input" type="radio" name={{student}} value="Absent">
-                                <label class="form-check-label" for="flexRadioDefault1">Absent</label>
-                            </div>
+                            <input class="form-check-input" type="radio" name={{student}} id="pres" value="Present" required>
+                            <label class="form-check-label" for="flexRadioDefault1">Present</label>
+                            <input class="form-check-input" type="radio" name={{student}} id="abs" value="Absent">
+                            <label class="form-check-label" for="flexRadioDefault1">Absent</label>
                         </td>
                     </tr>    
                 {% endfor %}
@@ -57,6 +55,6 @@
         var checkedChecks = document.querySelectorAll(".check:checked");
     if (checkedChecks.length >= max + 1)
         return false;
-}
+    }
 </script>
 {% endblock %}
