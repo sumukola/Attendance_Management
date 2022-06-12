@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
         <center>
-        <h4>Add students in your class</h4>
+        {% if emessage %}
+            {{emessage}}
+        {% endif %}
+        <h4>Add students to your class</h4>
         {% if forms and classname %}
                 <form action="{% url 'stu_cred' classname=classname %}" method="post">
                         {% csrf_token %}

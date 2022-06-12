@@ -30,6 +30,6 @@ def delete_class(request,tablename):
 
 def show_class(request,classname):
     with connection.cursor() as cursor:
-        cursor.execute("select * from {}".format(classname))
+        cursor.execute("""select rollno,usn,name from {}""".format(classname))
         students = cursor.fetchall()
     return render(request,'show_class.html',{'students':students})

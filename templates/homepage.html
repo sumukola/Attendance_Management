@@ -11,14 +11,14 @@
         {% endfor %}
     {% endif %}
 
-
     {% if tables %}
         <div class="head"><h1>Your Classes</h1></div>
         {% for table in tables %}
                 <div class="btn-group">
                     <form action="{% url 'show_class' classname=table %}"><button type="submit">{{table}}</button></form> 
-                    <form action="{% url 'markatt' tablename=table %}"><button type="submit" name=table>Mark Attendance</button></form>
-                    <form action="{% url 'addordel' classname=table %}"><button type="submit" name=table>Add Students</button></form>
+                    <form action="{% url 'mark' tablename=table %}"><button type="submit" name=table>Mark Attendance</button></form>
+                    <form action="{% url 'add_students' classname=table %}"><button type="submit" name=table>Add Students</button></form>
+                    <form action="{% url 'delete_students' classname=table %}"><button type="submit" name=table>Delete Students</button></form>
                     <form action="{% url 'delete_class' tablename=table %}" autocomplete="off">
                         <button type="button"  data-toggle="modal" data-target="#myModal">Delete</button>
                         <div class="container">
@@ -42,7 +42,6 @@
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                   </div>
                                 </div>
-                                
                               </div>
                             </div>
                     </form>
